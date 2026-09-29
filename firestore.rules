@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId}/study/{recordId} {
+      function owner() {
+        return request.auth != null && request.auth.uid == userId;
+      }
+      allow read: if owner();
+      allow create, update: if owner()
+        && recordId.matches('^[a-zA-Z0-9_:-]{1,240}$')
+        && request.resource.data.keys().hasOnly(['version', 'payload'])
+        && request.resource.data.version == 1
+        && request.resource.data.payload is string
+        && request.resource.data.payload.size() <= 120000;
+      allow delete: if false;
+    }
+  }
+}

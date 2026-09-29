@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#17181e" />
+    <style>
+      html { background: #17181e; color-scheme: dark; }
+      html[data-theme="light"] { background: #eef0f5; color-scheme: light; }
+    </style>
+    <script>
+      try {
+        const saved = JSON.parse(localStorage.getItem('system-design-studio:v1') || 'null');
+        if (saved && saved.version === 1 && saved.theme === 'light') {
+          document.documentElement.dataset.theme = 'light';
+          document.querySelector('meta[name="theme-color"]').content = '#eef0f5';
+        }
+      } catch {}
+    </script>
+    <meta name="description" content="An all-in-one system-design guide in clear English: eight core topic groups, a separate supporting section, 48 diagrams, real-life scenarios, and detailed practice." />
+    <title>System Design Studio</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <noscript>JavaScript is needed to open this reader. The full handbook is also available in the project's content folder.</noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
